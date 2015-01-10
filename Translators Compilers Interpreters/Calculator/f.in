@@ -1,0 +1,7 @@
+varA = 3.2 + 5.33
+varB = varA * 1
+varC = varA + varB + 1
+varD = sin (PI / 2)
+varC = 1 + cos (PI)
+varA = nodefinida + 8
+varA = 5 / 0
