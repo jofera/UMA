@@ -1,0 +1,1 @@
+Control automático simple de temperatura

@@ -110,12 +110,6 @@ unsigned long esperar_temporizacion(unsigned long next_ms){
 float temperatura(){
   float temp = val2tmp(analogRead(PINSENSOR),THERMISTOR_T0,THERMISTOR_R0,THERMISTOR_B);
   if(Serial){
-    /*
-    Serial.print("Temperatura: ");
-    Serial.print(temp);
-    Serial.print(", Calefactor: ");
-    Serial.println(est_calf);
-    */
     Serial.print(temp);
     Serial.print(" ");
     Serial.println(est_calf);

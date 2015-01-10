@@ -3,14 +3,6 @@
 
 #include <math.h>
 
-inline float val2tmp(int val, float T0, float R0, float B) {
-  float t, r;
-  r = ((1023.0 * 10e3) / float(val)) - 10e3;
-  T0 += 273.15; /* celsius -> kelvin */
-  t = 1.0 / ((1.0 / T0) + (log(r / R0) / B));
-  return t - 273.15; /* kelvin -> celsius */
-}
-
 /*----------------------------------*/
 #define THERMISTOR_NTCLE100E3103JB0
 //#define THERMISTOR_159_282_86001
@@ -46,6 +38,14 @@ int est_ledV = LOW;
 float temp;
 int regulando = 0;
 
+inline float val2tmp(int val, float T0, float R0, float B) {
+  float t, r;
+  r = ((1023.0 * 10e3) / float(val)) - 10e3;
+  T0 += 273.15; /* celsius -> kelvin */
+  t = 1.0 / ((1.0 / T0) + (log(r / R0) / B));
+  return t - 273.15; /* kelvin -> celsius */
+}
+
 unsigned long esperar_temporizacion(unsigned long next_ms){
   unsigned long t = millis();
   if (t < next_ms) {
@@ -58,12 +58,6 @@ unsigned long esperar_temporizacion(unsigned long next_ms){
 float temperatura(){
   float temp = val2tmp(analogRead(PINSENSOR),THERMISTOR_T0,THERMISTOR_R0,THERMISTOR_B);
   if(Serial){
-    /*
-    Serial.print("Temperatura: ");
-    Serial.print(temp);
-    Serial.print(", Calefactor: ");
-    Serial.println(est_calf);
-    */
     Serial.print(temp);
     Serial.print(" ");
     Serial.println(est_calf);
