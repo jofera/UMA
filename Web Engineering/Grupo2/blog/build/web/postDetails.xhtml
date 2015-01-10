@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"  />
+        <h:outputStylesheet library="css" name="bootstrap-theme.min.css"  />
+        <h:outputScript library="js" name="jquery-1.11.1.min.js" />
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="flickrClient.js" />
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+        <script type="text/javascript" src="resources/js/comments.js"></script>
+        <style>
+            h2{
+                margin: 0;     
+                color: #666;
+                padding-top: 90px;
+                font-size: 52px;
+                font-family: "trebuchet ms", sans-serif;    
+            }
+            .item{
+                background: #333;    
+                text-align: center;
+                height: 300px !important;
+            }
+            .carousel{
+                margin-top: 20px;
+            }
+            .bs-example{
+                    margin: 20px;
+            }
+            #map-canvas {
+                width: 600px;
+                height: 400px;
+                background-color: #CCC;
+            }
+        </style>
+    </h:head>
+    <h:body onload="getAllCommentsFromServer(#{postDetailsMB.selectedPost.idpost});">
+        <f:view>
+
+            <h:form>
+                <div class="container">
+                    <div class="page-header">
+                        <h1>
+                            <h:outputText value="#{postDetailsMB.selectedPost.city}" id="city" />
+                            <h:commandButton id="volver" value="Volver al blog" action="#{postDetailsMB.volver}" class="btn btn-danger navbar-right" />
+                        </h1>
+                        <small>
+                            <h:outputText value="#{postDetailsMB.selectedPost.region}, " title="Region"/>
+                            <h:outputText value="#{postDetailsMB.selectedPost.country}" title="Country"/>
+                            por
+                            <h:outputText value="#{postDetailsMB.selectedPost.nick}" title="Nick"/>
+                            el
+                            <h:outputText value="#{postDetailsMB.selectedPost.date}" title="Date">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                            </h:outputText>
+                        </small>
+                    </div>
+                    <p>
+                        <h:outputText value="#{postDetailsMB.selectedPost.post}" title="Post"/>
+                    </p>
+                    <div id="map-canvas"></div>
+                    <div id="photo-div"></div>
+                    <script>
+                        var geocoder;
+                        var map;
+                        function initialize() {
+                            geocoder = new google.maps.Geocoder();
+                            var latlng = new google.maps.LatLng(0, 0);
+                            var mapOptions = {
+                                zoom: 8,
+                                center: latlng,
+                               mapTypeId: google.maps.MapTypeId.ROADMAP
+                            }
+                            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                            codeAddress();
+                        }
+
+                        function codeAddress() {
+
+                            var address = '${postDetailsMB.selectedPost.city}';
+                            geocoder.geocode( { 'address': address}, function(results, status) {
+                              if (status == google.maps.GeocoderStatus.OK) {
+                                map.setCenter(results[0].geometry.location);
+                                var marker = new google.maps.Marker({
+                                    map: map,
+                                    position: results[0].geometry.location
+                                });
+                              } else {
+                                alert('Geocode was not successful for the following reason: ' + status);
+                              }
+                            });
+                        }
+
+                        google.maps.event.addDomListener(window, 'load', initialize);
+
+                    </script>
+                    <div class="page-header">
+                        <h3>Añadir un comentario</h3>
+                    </div>
+                    <div class="formulario">
+                        <div class="form-group">
+                            <h:outputLabel value="Comentario" for="commentadd_textarea_text" />
+                            <textarea id="commentadd_textarea_text" rows="10" cols="100" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="Nick" for="commentadd_input_nick" />
+                            <input id="commentadd_input_nick" type="text" name="Nick:" class="form-control"/>
+                        </div>
+                        <button onclick="sendCommentToServer(#{postDetailsMB.selectedPost.idpost});return false;" class="btn btn-default">Añadir</button>
+                    </div>
+                    <br></br>
+                    <div id="commentsshow_div_container">
+                        Comments
+                    </div>
+                    <div id="commentsshow_div_pages">
+                        <a onclick="changeCommentsPage(2, #{postDetailsMB.selectedPost.idpost})" href="javascript:void(0)">1</a>
+                    </div>
+                </div>
+            </h:form>
+        </f:view>
+    </h:body>
+    <script>multiImage("#{postDetailsMB.selectedPost.city}, #{postDetailsMB.selectedPost.region}", "#photo-div");</script>
+</html>
+
