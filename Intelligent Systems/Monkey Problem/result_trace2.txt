@@ -1,0 +1,19 @@
+C:\Users\Gonzalo\Desktop\Nueva carpeta>java -jar javagp.jar -d mb_domain.txt -p
+mb_problem2.txt
+INFO: Expanding graph
+INFO: Goals not possible with 1 steps
+INFO: Expanding graph
+INFO: Goals not possible with 2 steps
+INFO: Expanding graph
+INFO: Extracting solution
+INFO: Plan not found with 3 steps
+INFO: Expanding graph
+INFO: Extracting solution
+INFO: Plan found with 4 steps
+INFO: Plan found
+go(mono,a,c)
+push(mono,caja,c,b)
+climbUp(mono,caja,b)
+grasp(mono,platanos,b)
+
+INFO: Planning took 0s

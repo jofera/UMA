@@ -1,0 +1,23 @@
+operator go(M,A,B)
+pre: monkey(M),place(A),place(B),state(M,A)
+post: state(M,B),~state(M,A)
+
+operator push(M,C,A,B)
+pre: monkey(M),box(C),place(A),place(B),height(low),state(M,A),state(C,A),altitude(M,low),altitude(C,low)
+post: state(M,B),state(C,B),~state(M,A),~state(C,A)
+
+operator climbUp(M,C,A)
+pre: monkey(M),box(C),place(A),height(low),height(high),state(M,A),state(C,A),altitude(M,low),altitude(C,low)
+post: altitude(M,high),~altitude(M,low)
+
+operator climbDown(M,C,A)
+pre: monkey(M),box(C),place(A),height(low),height(high),state(M,A),state(C,A),altitude(M,high),altitude(C,low)
+post: altitude(M,low),~altitude(M,high)
+
+operator grasp(M,P,A)
+pre: monkey(M),bananas(P),place(A),height(high),state(P,A),state(M,A),altitude(M,high),altitude(P,high)
+post: ~state(P,A),~altitude(P,high)
+
+operator unGrasp(M,P,A)
+pre: monkey(M),bananas(P),place(A),height(low),state(M,A),~state(P,A),altitude(M,low)
+post: state(P,A),altitude(P,low)

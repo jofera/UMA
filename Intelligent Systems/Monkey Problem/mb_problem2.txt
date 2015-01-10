@@ -1,0 +1,24 @@
+start(
+	monkey(mono),
+	box(caja),
+	bananas(platanos),
+	place(a),
+	place(b),
+	place(c),
+	height(low),
+	height(high),
+	
+	//Estado inicial
+	
+	state(mono,a),
+	state(caja,c),
+	state(platanos,b),
+	
+	altitude(mono,low),
+	altitude(caja,low),
+	altitude(platanos,high)
+)
+
+goal(
+	~altitude(platanos,high)
+)
