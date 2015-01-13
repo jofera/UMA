@@ -1,0 +1,61 @@
+.text
+
+	lui $20,0x0002 #copia 20000 
+	nop
+	nop
+	nop
+	addi $21, $20, 1
+	nop
+	nop
+	nop
+	lui $17, 0x7FFF
+	nop
+	nop
+	nop
+	addi $17,$17,0x0000 
+	nop
+	nop
+	nop
+start:	lw $14,0($21) #cargo entrada del puerto 20001 en reg 14
+	nop
+	nop
+	nop
+	bne $14,$0, sumar
+	nop
+	j start
+
+sumar: add $17, $17, $17
+	nop
+	nop
+	nop
+	
+
+
+
+.ktext
+mfc0 $25, $14 #Copia EPC al $25 direccion de retorno
+mfc0 $26, $13 #copia CAUSE al $26 codigo de excepcion
+
+	lui $10,0x0001 #COPIA 10000 Puerto 0	
+	nop
+	nop
+	nop
+	addi $13, $10, 3
+	nop
+	nop
+	nop
+	addi $1, $0, 1
+	nop
+	nop
+	nop
+	sw $1, 0($13)#escribo en puerto de salida 10000
+	nop
+	nop
+	nop
+
+eret #restaura el registro CAUSE del coprocesador 0
+jr $25 #vuelve a la direccion de retorno
+
+
+#Ejercicio 9: Lo que ocurre es que la RTI se activa y el led se enciende, aunque no se haya producido ningún overflow
+

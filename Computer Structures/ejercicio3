@@ -1,0 +1,59 @@
+.text
+
+	lui $20,0x0002 #copia 20000 
+	nop
+	nop
+	nop
+	lui $10,0x0001 #COPIA 10000 Puerto 0	
+	nop
+	nop
+	nop
+	addi $11,$10,1 #calculo 10001 Puerto 1
+	nop
+	nop
+	nop
+	addi $12,$10,2 #calculo 10002 Puerto 2
+	nop
+	nop
+	nop
+	addi $13,$10,3 #calculo 10003
+	nop
+	nop
+	nop
+	
+	
+start:	lw $14,0($20) #cargo entrada del puerto 20000 en reg 14
+	nop
+	nop
+	nop
+	srl $15, $14,1 #desplazamiento de 1 bit a la derecha sobre entrada del puerto 0
+	nop
+	nop
+	nop
+	srl $16, $15,1 #desplazamiento de 1 bit a la derecha sobre valor anterior
+	nop
+	nop
+	nop
+	srl $17, $16,1 #desplazamiento de 1 bit a la derecha sobre valor anterior
+	nop
+	nop
+	nop
+	sw $14, 0($10)#escribo en puerto de salida 10000
+	nop
+	nop
+	nop
+	sw $15, 0($11)#escribo en puerto de salida 10001
+	nop
+	nop
+	nop
+	sw $16, 0($12)#escribo en puerto de salida 10002
+	nop
+	nop
+	nop
+	sw $17, 0($13)#escribo en puerto de salida 10003
+	nop
+	nop
+	nop
+	j start
+	nop
+	

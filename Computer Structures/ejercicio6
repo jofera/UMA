@@ -1,0 +1,28 @@
+.text
+
+	lui $20,0x0002 #copia 20000 
+	nop
+	nop
+	nop
+	addi $22,$20,2 #calculo 20002: boton 2
+	nop
+	nop
+	nop
+	lui $10,0x0001 #COPIA 10000 Puerto 0	
+	nop
+	nop
+	nop
+
+start:	lw $14,0($22) #cargo entrada del puerto 20002 en reg 14
+	nop
+	nop
+	nop
+	bne $14,$0, encender
+	nop
+	j start
+
+encender: sw $14, 0($10)#escribo en puerto de salida 10000
+	nop
+	nop
+	nop
+	j start

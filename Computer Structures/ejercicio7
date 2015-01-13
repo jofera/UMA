@@ -1,0 +1,23 @@
+.text
+
+fin: beq $0,$0, fin
+
+.ktext
+mfc0 $25, $14 #Copia EPC al $25 direccion de retorno
+mfc0 $26, $13 #copia CAUSE al $26 codigo de excepcion
+
+	lui $10,0x0001 #COPIA 10000 Puerto 0	
+	nop
+	nop
+	nop
+	addi $1, $0, 1
+	nop
+	nop
+	nop
+	sw $1, 0($10)#escribo en puerto de salida 10000
+	nop
+	nop
+	nop
+
+eret #restaura el registro CAUSE del coprocesador 0
+jr $25 #vuelve a la direccion de retorno

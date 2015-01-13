@@ -1,0 +1,96 @@
+.text
+
+	lui $10,0x0001 #COPIA 10000	
+	nop
+	nop
+	nop
+	addi $11,$10,1 #calculo 10001
+	nop
+	nop
+	nop
+	addi $12,$10,2 #calculo 10002
+	nop
+	nop
+	nop
+	addi $13,$10,3 #calculo 10003
+	nop
+	nop
+	nop
+	addi $1,$0,1 #carg0 un 1 en $1
+	nop
+	nop
+	nop
+	lui $16, 0x007F
+	nop
+	nop
+	nop
+	addi $16,$16,0x2815 # numero de instrucciones para un segundo (teniendo en cuenta bucle)
+	nop
+	nop
+	nop
+
+start:	sw $1, 0($10)# enciende led: escribo 1 en puerto de salida 10000
+	nop
+	nop
+	nop
+	add $18,$16,$0 
+	nop
+	nop	
+	nop
+bucle1:	subi $18,$18,1 #bucle de 1 segundo
+	nop	
+	nop	
+	nop
+	bne $18,$0, bucle1
+	nop
+	nop
+	nop
+sw $1, 0($11)# enciende led: escribo 1 en puerto de salida 10000
+	nop
+	nop
+	nop
+	add $18,$16,$0 
+	nop
+	nop	
+	nop
+bucle2:	subi $18,$18,1 #bucle de 1 segundo
+	nop	
+	nop	
+	nop
+	bne $18,$0, bucle2
+	nop
+	nop
+	nop
+sw $1, 0($12)# enciende led: escribo 1 en puerto de salida 10000
+	nop
+	nop
+	nop
+	add $18,$16,$0 
+	nop
+	nop	
+	nop
+bucle3:	subi $18,$18,1 #bucle de 1 segundo
+	nop	
+	nop	
+	nop
+	bne $18,$0, bucle3
+	nop
+	nop
+	nop
+sw $1, 0($13)# enciende led: escribo 1 en puerto de salida 10000
+	nop
+	nop
+	nop
+	add $18,$16,$0 
+	nop
+	nop	
+	nop
+bucle4:	subi $18,$18,1 #bucle de 1 segundo
+	nop	
+	nop	
+	nop
+	bne $18,$0, bucle4
+	nop
+	nop
+	nop
+

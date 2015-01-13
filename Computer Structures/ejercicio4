@@ -1,0 +1,69 @@
+.text
+
+	lui $10,0x0001 #COPIA 10000 Puerto 0	
+	nop
+	nop
+	nop
+	addi $12,$10,2 #calculo 10002 Puerto 2
+	nop
+	nop
+	nop
+	addi $1,$0,1 #carg0 un 1 en $1
+	nop
+	nop
+	nop
+	lui $16, 0x007F
+	nop
+	nop
+	nop
+	addi $16,$16,0x2815 # numero de instrucciones para un segundo (teniendo en cuenta bucle)
+	nop
+	nop
+	nop
+	lui $19, 0x003F
+	nop
+	nop
+	nop
+	addi $19,$19,0x940A # numero de instrucciones para medio segundo (teniendo en cuenta bucle)
+	nop
+	nop
+	nop
+
+start:	sw $1, 0($12)# enciende led: escribo 1 en puerto de salida 10002
+	nop
+	nop
+	nop
+	add $18,$16,$0 
+	nop
+	nop	
+	nop
+bucle1:	subi $18,$18,1 #bucle de 1 segundo
+	nop	
+	nop	
+	nop
+	bne $18,$0, bucle1
+	nop
+	nop
+	nop
+	sw $0, 0($12)#	Apaga led: escribo en puerto de salida 10002
+	nop
+	nop
+	nop
+	add $18,$19,$0
+	nop
+	nop	
+	nop
+bucle2:	subi $18,$18,1 #bucle de medio segundo
+	nop	
+	nop	
+	nop
+	bne $18,$0, bucle2
+	nop
+	nop
+	nop
+	j start
+	nop
+
+
+
+	
